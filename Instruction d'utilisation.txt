@@ -1,0 +1,110 @@
+====================================================
+  PORTFOLIO LOAN BURCET — BUT GIM IUT BLAGNAC
+  README — Instructions d'utilisation
+====================================================
+
+STRUCTURE DES FICHIERS
+-----------------------
+Portfolio/
+├── index.html      ← Le site complet (ouvrir dans un navigateur)
+├── README.txt      ← Ce fichier
+└── photos/         ← Dossier à créer (voir ci-dessous)
+    ├── SAE11_AC1.jpg
+    ├── SAE11_AC2.jpg
+    ├── SAE12_AC1.jpg
+    ...
+
+
+ÉTAPE 1 — Créer le dossier photos/
+------------------------------------
+Crée un dossier nommé exactement "photos" (sans guillemets)
+dans le même dossier que le fichier index.html.
+
+
+ÉTAPE 2 — Nommer tes photos
+-----------------------------
+Renomme chacune de tes photos selon ce tableau EXACT :
+
+  SAE11_AC1.jpg  →  SAÉ 1.1, Apprentissage Critique 1
+                    (Tracker solaire — fonctionnement constituants)
+
+  SAE11_AC2.jpg  →  SAÉ 1.1, Apprentissage Critique 2
+                    (Tracker solaire — outils intervention simple)
+
+  SAE12_AC1.jpg  →  SAÉ 1.2, Apprentissage Critique 1
+                    (Extrudeur — identifier éléments du système)
+
+  SAE12_AC2.jpg  →  SAÉ 1.2, Apprentissage Critique 2
+                    (Extrudeur — gamme démontage/montage)
+
+  SAE13_AC1.jpg  →  SAÉ 1.3, Apprentissage Critique 1
+                    (Raspberry Pi — préparer l'installation)
+
+  SAE13_AC2.jpg  →  SAÉ 1.3, Apprentissage Critique 2
+                    (Raspberry Pi — exécuter opération technique)
+
+  SAE13_AC3.jpg  →  SAÉ 1.3, Apprentissage Critique 3
+                    (Raspberry Pi — documentation FR/EN)
+
+  SAE14_AC1.jpg  →  SAÉ 1.4, Apprentissage Critique 1
+                    (Airbus — vocabulaire adapté)
+
+  SAE14_AC2.jpg  →  SAÉ 1.4, Apprentissage Critique 2
+                    (Airbus — rôles des services)
+
+  SAE15_AC1.jpg  →  SAÉ 1.5, Apprentissage Critique 1
+                    (Airbus FAL — règles et normes)
+
+  SAE15_AC2.jpg  →  SAÉ 1.5, Apprentissage Critique 2
+                    (Airbus FAL — intervenir en sécurité)
+
+  SAE15_AC3.jpg  →  SAÉ 1.5, Apprentissage Critique 3
+                    (Airbus FAL — outils mesures et contrôles)
+
+
+ÉTAPE 3 — Placer les photos dans le dossier
+---------------------------------------------
+Copie toutes tes photos renommées dans le dossier photos/.
+
+
+ÉTAPE 4 — Ouvrir le site
+--------------------------
+Double-clique sur index.html pour l'ouvrir dans ton navigateur.
+Les photos apparaîtront automatiquement.
+
+Si une photo est manquante, un emplacement gris s'affiche
+avec le texte "Photo à ajouter" — le site reste fonctionnel.
+
+
+FORMATS ACCEPTÉS
+-----------------
+Le site est prévu pour .jpg mais accepte aussi :
+  - .jpeg
+  - .png
+  - .webp
+
+Si tu utilises un format différent, change l'extension dans
+le fichier index.html (chercher le nom du fichier, ex: SAE11_AC1).
+
+
+NAVIGATEURS COMPATIBLES
+-------------------------
+Chrome, Firefox, Edge, Safari — versions récentes.
+Le site est responsive (s'adapte aux téléphones et tablettes).
+
+
+FONCTIONNALITÉS DU SITE
+-------------------------
+- Navigation fixe en haut (5 sections)
+- Animations au défilement
+- Onglets pour naviguer entre les 5 SAÉ
+- Clic sur une photo → affichage en plein écran (lightbox)
+- Touche Échap pour fermer le plein écran
+- Placeholder élégant si photo absente
+
+
+SOUTENANCE
+-----------
+Mardi 19 mai 2026 — 8h30 — Salle B201 — IUT de Blagnac
+
+====================================================

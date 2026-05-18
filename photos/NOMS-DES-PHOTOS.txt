@@ -1,0 +1,39 @@
+CONVENTION DE NOMMAGE DES PHOTOS — PORTFOLIO BUT GIM
+=====================================================
+
+Chaque apprentissage critique (AC) affiche UNE photo dans le portfolio.
+Place le fichier dans le bon sous-dossier, avec le nom EXACT indiqué.
+Format accepté : .jpg
+
+photos/
+├── SAE1.1/  (Maintenir — Tracker solaire)
+│   ├── AC1/  ->  SAE1.1_AC1.jpg
+│   └── AC2/  ->  SAE1.1_AC2.jpg
+│
+├── SAE1.2/  (Améliorer — Extrudeur Extrudic)
+│   ├── AC1/  ->  SAE1.2_AC1.jpg
+│   └── AC2/  ->  SAE1.2_AC2.jpg
+│
+├── SAE1.3/  (Installer — Raspberry Pi 3)
+│   ├── AC1/  ->  SAE1.3_AC1.jpg
+│   ├── AC2/  ->  SAE1.3_AC2.jpg
+│   └── AC3/  ->  SAE1.3_AC3.jpg
+│
+├── SAE1.4/  (Manager — Visite Airbus)
+│   ├── AC1/  ->  SAE1.4_AC1.jpg
+│   └── AC2/  ->  SAE1.4_AC2.jpg
+│
+└── SAE1.5/  (Sécuriser — Analyse de risques FAL A330/350)
+    ├── AC1/  ->  SAE1.5_AC1.jpg
+    ├── AC2/  ->  SAE1.5_AC2.jpg
+    └── AC3/  ->  SAE1.5_AC3.jpg
+
+REMARQUES
+---------
+- Le nom du fichier doit être respecté à la lettre (majuscules, points, _).
+- Si une photo manque, le portfolio affiche « À documenter » à sa place :
+  tu peux donc ajouter les photos au fur et à mesure.
+- Tu peux garder d'autres photos de travail dans le sous-dossier AC ;
+  seule celle qui porte le nom exact ci-dessus sera affichée.
+- Pour changer la photo affichée : remplace simplement le fichier nommé,
+  ou modifie le chemin "photo:" dans le bloc DATA du fichier HTML.

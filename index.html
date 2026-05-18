@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loan Burcet — Portfolio · BUT GIM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   PORTFOLIO — LOAN BURCET — RÉV. 03
+   STYLE : INGÉNIEUR / MAINTENANCE INDUSTRIELLE
+   ============================================================ */
+
+:root{
+  --paper:     #ECE8DC;
+  --paper-2:   #DFD8C5;
+  --paper-3:   #F6F3EA;
+  --grid:      rgba(20,28,38,0.055);
+
+  --ink:       #141C26;
+  --ink-soft:  #4A5563;
+  --ink-mute:  #8C8473;
+
+  --steel:     #2B3640;
+  --signal:    #B5391C;
+  --blueprint: #1F5B89;
+  --warn:      #C68A12;
+
+  --line:      #141C26;
+  --line-soft: #B6B0A0;
+
+  --max:       1240px;
+  --gutter:    32px;
+  --rule:      1px;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+html, body{ background: var(--paper); color: var(--ink); }
+body{
+  font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+::selection{ background: var(--signal); color: var(--paper-3); }
+
+a{ color: inherit; text-decoration: none; }
+img{ display: block; max-width: 100%; }
+button{ font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ============================================================
+   TYPE
+   ============================================================ */
+.sans  { font-family: 'IBM Plex Sans', 'Helvetica Neue', sans-serif; }
+.cond  { font-family: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif; }
+.mono  { font-family: 'IBM Plex Mono', monospace; }
+
+.eyebrow{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.eyebrow .tag{
+  display: inline-block;
+  padding: 2px 7px 1px;
+  background: var(--ink);
+  color: var(--paper-3);
+  margin-right: 10px;
+  font-weight: 600;
+}
+.eyebrow .sq{
+  display: inline-block; width: 7px; height: 7px;
+  background: var(--signal); margin-right: 9px; transform: translateY(-1px);
+}
+
+/* status pills — engineering style */
+.pill{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 10px 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  background: var(--paper-3);
+}
+.pill .dot{
+  width: 7px; height: 7px; display: inline-block;
+}
+.pill.ok    { background: var(--ink); color: var(--paper-3); border-color: var(--ink); }
+.pill.ok    .dot{ background: var(--paper-3); }
+.pill.run   .dot{ background: var(--signal); animation: blink 1.4s steps(2) infinite; }
+.pill.next  .dot{ background: transparent; border: 1px solid var(--ink); }
+.pill.warn  { border-color: var(--warn); color: var(--warn); }
+.pill.warn  .dot{ background: var(--warn); }
+
+@keyframes blink{ 50%{ opacity: 0.25; } }
+
+/* corner brackets — engineering frame marks */
+.brk{ position: relative; }
+.brk::before,
+.brk::after{
+  content: ""; position: absolute; width: 14px; height: 14px;
+  border: 2px solid var(--ink);
+}
+.brk::before{ top: -4px; left: -8px; border-right: 0; border-bottom: 0; }
+.brk::after { bottom: -4px; right: -8px; border-left: 0; border-top: 0; }
+
+/* ============================================================
+   PAGE ENVELOPE
+   ============================================================ */
+.page{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ============================================================
+   TITLE BLOCK — bandeau supérieur (style cartouche de plan)
+   ============================================================ */
+.titleblock{
+  border-bottom: 1.5px solid var(--line);
+  background: var(--paper-3);
+  position: sticky; top: 0; z-index: 40;
+}
+.titleblock-inner{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto auto;
+  align-items: stretch;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.titleblock-inner > *{
+  padding: 10px 18px;
+  border-left: 1px solid var(--line-soft);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.titleblock-inner > *:first-child{ border-left: 0; padding-left: 0; }
+.tb-mark{
+  display: flex; flex-direction: row !important; align-items: center !important; gap: 10px;
+  color: var(--ink); font-weight: 700; font-family: 'IBM Plex Sans Condensed', sans-serif;
+  letter-spacing: 0.04em; font-size: 14px;
+  padding-left: 0;
+}
+.tb-mark .logomark{
+  display: inline-block; width: 22px; height: 22px;
+  background: var(--ink); position: relative;
+}
+.tb-mark .logomark::before,
+.tb-mark .logomark::after{
+  content: ""; position: absolute; background: var(--signal);
+}
+.tb-mark .logomark::before{ inset: 4px 4px 4px 12px; }
+.tb-mark .logomark::after { inset: 12px 12px 4px 4px; background: var(--paper-3); }
+.tb-mark .id{ text-transform: uppercase; }
+
+.tb-label{ font-size: 9px; color: var(--ink-mute); margin-bottom: 2px; }
+.tb-value{ font-size: 11px; color: var(--ink); font-weight: 600; letter-spacing: 0.08em; }
+.tb-spacer{ flex: 1; border: 0 !important; padding: 0 !important; }
+
+/* ============================================================
+   NAV — chapitres
+   ============================================================ */
+nav.chapters{
+  border-bottom: 1.5px solid var(--line);
+  background: var(--paper);
+  position: sticky; top: 41px; z-index: 39;
+}
+nav.chapters .row{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex; gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav.chapters .row::-webkit-scrollbar{ display: none; }
+nav.chapters a{
+  padding: 13px 22px 12px 0;
+  margin-right: 24px;
+  display: inline-flex; align-items: baseline; gap: 12px;
+  color: var(--ink-soft);
+  position: relative;
+  flex: 0 0 auto;
+  transition: color 120ms;
+  border-right: 1px dashed var(--line-soft);
+}
+nav.chapters a:last-child{ margin-right: 0; border-right: 0; }
+nav.chapters a:hover{ color: var(--ink); }
+nav.chapters a .n{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  background: var(--ink);
+  color: var(--paper-3);
+  padding: 2px 6px 1px;
+  font-weight: 600;
+}
+nav.chapters a .t{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+nav.chapters a.active{ color: var(--ink); }
+nav.chapters a.active .n{ background: var(--signal); }
+nav.chapters a.active::after{
+  content:""; position: absolute; left: 0; right: 22px; bottom: -1.5px;
+  height: 2px; background: var(--signal);
+}
+
+/* ============================================================
+   SECTION COMMUN
+   ============================================================ */
+section.chapter{
+  padding: 80px 0 96px;
+  border-bottom: 1.5px solid var(--line);
+  scroll-margin-top: 90px;
+  position: relative;
+}
+
+/* Cartouche de chapitre en tête */
+.chap-head{
+  display: grid;
+  grid-template-columns: 180px 1fr 260px;
+  gap: 28px;
+  align-items: stretch;
+  margin-bottom: 56px;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+.chap-head > *{
+  padding: 20px 22px;
+  border-right: 1px solid var(--line-soft);
+}
+.chap-head > *:last-child{ border-right: 0; }
+
+.chap-head .ref{
+  display: flex; flex-direction: column; justify-content: space-between;
+  background: var(--ink); color: var(--paper-3);
+  border-right: 0;
+}
+.chap-head .ref .num{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 64px; line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--paper-3);
+}
+.chap-head .ref .num em{
+  color: var(--signal);
+  font-style: normal;
+}
+.chap-head .ref .lbl{
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 10px;
+}
+
+.chap-head .ttl{ display: flex; flex-direction: column; justify-content: center; }
+.chap-head .ttl h2{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 600;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.chap-head .ttl h2 em{
+  font-style: normal;
+  color: var(--signal);
+}
+.chap-head .ttl .sub{
+  margin-top: 14px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.chap-head .specs{
+  display: grid; gap: 8px;
+  align-content: center;
+  background: var(--paper);
+}
+.chap-head .specs .row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.chap-head .specs .row:last-child{ border-bottom: 0; }
+.chap-head .specs .k{ color: var(--ink-mute); }
+.chap-head .specs .v{ color: var(--ink); font-weight: 600; }
+.chap-head .specs .v.signal{ color: var(--signal); }
+
+/* ============================================================
+   HERO — cartouche principal style "plan d'ensemble"
+   ============================================================ */
+.hero{
+  padding: 64px 0 56px;
+  border-bottom: 1.5px solid var(--line);
+  position: relative;
+}
+.hero .top-row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+.hero .top-row .pills{ display: flex; gap: 8px; flex-wrap: wrap; }
+
+.hero-frame{
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+}
+.hero-main{
+  padding: 44px 36px 36px;
+  border-right: 1.5px solid var(--line);
+  position: relative;
+}
+.hero-main .crosshair{
+  position: absolute; width: 18px; height: 18px;
+  border: 1.5px solid var(--signal);
+}
+.hero-main .crosshair::before,
+.hero-main .crosshair::after{
+  content: ""; position: absolute; background: var(--signal);
+}
+.hero-main .crosshair::before{ left: 50%; top: -6px; bottom: -6px; width: 1.5px; transform: translateX(-50%); }
+.hero-main .crosshair::after { top: 50%; left: -6px; right: -6px; height: 1.5px; transform: translateY(-50%); }
+.hero-main .crosshair.tl{ top: -10px; left: -10px; }
+.hero-main .crosshair.tr{ top: -10px; right: -10px; }
+.hero-main .crosshair.bl{ bottom: -10px; left: -10px; }
+.hero-main .crosshair.br{ bottom: -10px; right: -10px; }
+
+.hero h1{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(64px, 11vw, 144px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 .second{
+  display: block;
+  color: var(--signal);
+}
+.hero .lede{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(17px, 1.9vw, 21px);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  max-width: 40ch;
+  color: var(--ink);
+  margin-top: 20px;
+}
+.hero .lede strong{ color: var(--signal); font-weight: 600; }
+
+.hero-side{
+  padding: 28px 28px 24px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--paper);
+}
+.hero-side .label{
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mute); margin-bottom: 14px;
+  display: flex; justify-content: space-between;
+}
+.hero-side .label b{ color: var(--ink); font-weight: 600; }
+.hero-side table.kv{ width: 100%; }
+.hero-side table.kv td{
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 11.5px;
+  vertical-align: top;
+}
+.hero-side table.kv tr:last-child td{ border-bottom: 0; }
+.hero-side table.kv td:first-child{
+  width: 46%;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+.hero-side table.kv td:last-child{
+  color: var(--ink); font-weight: 600;
+}
+.hero-side .stamp{
+  margin-top: 18px;
+  border: 1px solid var(--signal);
+  color: var(--signal);
+  padding: 9px 12px;
+  text-align: center;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ============================================================
+   §01 ACCUEIL — fiche d'identité
+   ============================================================ */
+.intro{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.intro .lead p{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 17px; line-height: 1.55;
+  color: var(--ink);
+  max-width: 44ch;
+}
+.intro .lead p + p{ margin-top: 14px; color: var(--ink-soft); font-size: 15px; }
+.intro .lead p em{ font-style: italic; color: var(--signal); font-weight: 500; }
+
+.fiche{
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+.fiche-head{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 18px;
+  background: var(--ink); color: var(--paper-3);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.fiche-head b{ font-weight: 600; color: var(--paper-3); }
+.fiche-head .ref-code{ color: var(--signal); }
+.fiche-body{ padding: 16px 18px 18px; }
+.kv{ width: 100%; border-collapse: collapse; font-size: 12px; }
+.kv td{
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  vertical-align: top;
+}
+.kv tr:last-child td{ border-bottom: 0; }
+.kv td:first-child{
+  width: 44%;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+.kv td:last-child{ color: var(--ink); font-weight: 600; }
+
+/* ============================================================
+   §02 COMPÉTENCES — modules techniques
+   ============================================================ */
+.skills{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+.skill{
+  display: grid;
+  grid-template-columns: 96px 220px 1fr 140px;
+  gap: 24px;
+  align-items: stretch;
+  border-bottom: 1px solid var(--line-soft);
+  position: relative;
+}
+.skill:last-child{ border-bottom: 0; }
+
+.skill .idx{
+  background: var(--ink); color: var(--paper-3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px 12px;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 48px; line-height: 1;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.skill .idx::after{
+  content: ""; position: absolute; bottom: 14px;
+  width: 28px; height: 2px; background: var(--signal);
+}
+.skill .idx .small{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.16em;
+  color: var(--paper-3); margin-top: 8px;
+}
+
+.skill .ref{
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 24px 0;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-soft);
+  border-right: 1px dashed var(--line-soft);
+  padding-right: 24px;
+}
+.skill .ref .code{
+  display: inline-block;
+  color: var(--signal); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.skill .ref b{ color: var(--ink); font-weight: 700; display: block; font-size: 15px; }
+
+.skill .body{ padding: 24px 0; }
+.skill .body h3{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+.skill .body h3 .verb{
+  color: var(--signal);
+}
+.skill .body p{
+  margin-top: 10px;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.skill .level{
+  padding: 24px 18px 24px 0;
+  text-align: right;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+  gap: 10px;
+}
+.skill .level .gauge{
+  display: flex; gap: 4px; margin-bottom: 4px;
+}
+.skill .level .gauge span{
+  width: 18px; height: 6px; border: 1px solid var(--line);
+}
+.skill .level .gauge span.on{ background: var(--signal); border-color: var(--signal); }
+
+/* ============================================================
+   §03 TRACES SAÉ — onglets + datasheet
+   ============================================================ */
+.sae-tabs{
+  display: flex; gap: 0;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+  margin-bottom: 36px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sae-tabs::-webkit-scrollbar{ display: none; }
+.sae-tab{
+  flex: 1 1 0;
+  min-width: 150px;
+  padding: 14px 18px 16px;
+  display: grid; gap: 6px;
+  text-align: left;
+  border-right: 1px solid var(--line-soft);
+  color: var(--ink-soft);
+  position: relative;
+  transition: color 120ms, background 120ms;
+}
+.sae-tab:last-child{ border-right: 0; }
+.sae-tab:hover{ color: var(--ink); background: var(--paper); }
+.sae-tab .ref{
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-mute);
+}
+.sae-tab .verb{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px; letter-spacing: 0.01em; text-transform: uppercase;
+  color: inherit;
+}
+.sae-tab.active{
+  color: var(--paper-3);
+  background: var(--ink);
+}
+.sae-tab.active .ref{ color: var(--signal); }
+.sae-tab.active::after{
+  content:""; position: absolute; left: 0; right: 0; bottom: -1.5px;
+  height: 2px; background: var(--signal);
+}
+
+.sae-stage{ position: relative; min-height: 480px; }
+
+.sae-doc{
+  display: none;
+  animation: docIn 220ms ease both;
+}
+.sae-doc.active{ display: block; }
+@keyframes docIn{
+  from{ opacity: 0; transform: translateY(6px); }
+  to  { opacity: 1; transform: none; }
+}
+
+/* datasheet header */
+.sae-doc-head{
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+  margin-bottom: 32px;
+}
+.sae-doc-head .ttl{
+  padding: 28px 28px 26px;
+  border-right: 1.5px solid var(--line);
+}
+.sae-doc-head .ttl .verb{
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 10px;
+  display: block;
+}
+.sae-doc-head .ttl .name{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px); line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.sae-doc-head .meta{
+  background: var(--ink);
+  color: var(--paper-3);
+  padding: 22px 22px;
+  display: grid; gap: 9px;
+  align-content: center;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.sae-doc-head .meta .row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(246,243,234,0.18);
+}
+.sae-doc-head .meta .row:last-child{ border-bottom: 0; padding-bottom: 0; }
+.sae-doc-head .meta .k{ color: var(--ink-mute); }
+.sae-doc-head .meta .v{ color: var(--paper-3); font-weight: 600; }
+.sae-doc-head .meta .v.signal{ color: var(--signal); }
+
+/* corps datasheet */
+.sae-doc-body{
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.sae-block{
+  margin-bottom: 20px;
+  border-left: 2px solid var(--line-soft);
+  padding-left: 18px;
+}
+.sae-block.signal{ border-left-color: var(--signal); }
+.sae-block .label{
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sae-block .label .num{
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  color: var(--signal);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.sae-block .label .tag{
+  display: inline-block;
+  padding: 2px 6px 1px;
+  background: var(--ink);
+  color: var(--paper-3);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.sae-block p{
+  font-size: 13.5px; line-height: 1.6;
+  color: var(--ink);
+}
+.sae-block.large p{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; line-height: 1.5;
+  color: var(--ink);
+}
+
+/* AC cards */
+.ac-list{ display: grid; gap: 14px; }
+.ac-card{
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+  display: grid;
+  grid-template-columns: 1fr 130px;
+  align-items: stretch;
+  overflow: hidden;
+}
+.ac-card .meta-side{
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  border-right: 1px solid var(--line-soft);
+}
+.ac-card .meta-side .code{
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-3);
+  background: var(--signal);
+  padding: 3px 8px 2px;
+  align-self: flex-start;
+}
+.ac-card .meta-side .text{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13.5px; line-height: 1.35;
+  color: var(--ink);
+}
+.ac-card .thumb{
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+  overflow: hidden;
+  position: relative;
+  cursor: zoom-in;
+  transition: transform 140ms ease;
+}
+.ac-card .thumb:hover{ transform: scale(1.02); }
+.ac-card .thumb img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.ac-card .thumb .miss{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    repeating-linear-gradient(135deg,
+      var(--paper-3) 0 8px, var(--paper-2) 8px 9px);
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  text-align: center;
+  padding: 0 6px;
+}
+.ac-card .thumb .miss::before{
+  content: "[ + ]"; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, calc(-50% - 14px));
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* retour réflexif */
+.sae-reflect{
+  margin-top: 32px;
+  padding: 28px;
+  border: 1.5px solid var(--line);
+  background: var(--ink);
+  color: var(--paper-3);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+.sae-reflect .label{
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.sae-reflect .label em{
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  color: var(--signal);
+  font-size: 20px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.sae-reflect .label .num{
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--signal);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.sae-reflect .quote{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  margin-bottom: 16px;
+  color: var(--paper-3);
+  position: relative; padding-left: 18px;
+  border-left: 3px solid var(--signal);
+}
+.sae-reflect .body p{
+  font-size: 13.5px; line-height: 1.65;
+  color: rgba(246,243,234,0.78);
+  max-width: 64ch;
+}
+
+.sae-nav-foot{
+  margin-top: 28px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.sae-nav-foot button{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 600;
+  padding: 6px 10px; border: 1px solid var(--line);
+  transition: background 100ms, color 100ms;
+}
+.sae-nav-foot button:hover{ background: var(--ink); color: var(--paper-3); }
+.sae-nav-foot button[disabled]{ opacity: 0.3; cursor: not-allowed; }
+.sae-nav-foot .counter{
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ============================================================
+   §04 PARCOURS — timeline d'opérations
+   ============================================================ */
+.path{
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+.path-row{
+  display: grid;
+  grid-template-columns: 140px 1fr 160px;
+  gap: 24px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line-soft);
+  align-items: center;
+}
+.path-row:last-child{ border-bottom: 0; }
+.path-row .date{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px; letter-spacing: -0.01em; line-height: 1;
+}
+.path-row .date small{
+  display: block; margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace; font-weight: 500;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.path-row .body h4{
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 18px; letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+.path-row .body p{
+  margin-top: 6px; color: var(--ink-soft); font-size: 13px; max-width: 64ch;
+}
+.path-row .status{ display: flex; justify-content: flex-end; }
+
+/* ============================================================
+   §05 CONTACT
+   ============================================================ */
+.contact{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+  border: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+.contact .left{
+  padding: 36px 32px;
+  border-right: 1.5px solid var(--line);
+}
+.contact .left a.mail{
+  display: block;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  word-break: break-word;
+  transition: color 120ms, border-color 120ms;
+}
+.contact .left a.mail:hover{ color: var(--signal); border-bottom-color: var(--signal); }
+.contact .left .obj{
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1.4;
+  max-width: 32ch;
+  color: var(--ink-soft);
+}
+.contact .left .obj span{ color: var(--signal); font-weight: 600; }
+.contact .right{
+  padding: 28px 28px;
+  background: var(--paper);
+}
+.contact .right .label{
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   FOOTER — cartouche de plan
+   ============================================================ */
+footer.foot{
+  border-top: 1.5px solid var(--line);
+  background: var(--paper-3);
+}
+footer.foot .row{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 20px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto;
+  gap: 0;
+  align-items: stretch;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+footer.foot .row > *{
+  padding: 0 18px;
+  border-left: 1px solid var(--line-soft);
+  display: flex; flex-direction: column; justify-content: center;
+}
+footer.foot .row > *:first-child{ border-left: 0; padding-left: 0; }
+footer.foot .row .tb-label{ font-size: 9px; color: var(--ink-mute); }
+footer.foot .row .tb-value{ font-size: 11px; color: var(--ink); font-weight: 600; }
+footer.foot b{ color: var(--ink); font-weight: 600; }
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lb{
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(20,28,38,0.94);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 32px;
+}
+.lb.open{ display: flex; }
+.lb-frame{
+  background: var(--paper-3);
+  width: 100%;
+  max-width: 1100px;
+  max-height: 88vh;
+  border: 1.5px solid var(--signal);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+}
+.lb-head{
+  padding: 12px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1.5px solid var(--line);
+  background: var(--ink); color: var(--paper-3);
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.lb-head b{ color: var(--signal); font-weight: 700; }
+.lb-close{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 10px; border: 1px solid var(--paper-3);
+  color: var(--paper-3);
+  transition: background 100ms, color 100ms;
+}
+.lb-close:hover{ background: var(--signal); border-color: var(--signal); }
+
+.lb-stage{
+  position: relative;
+  background: var(--paper-2);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 360px;
+  overflow: hidden;
+}
+.lb-stage img{ max-width: 100%; max-height: 70vh; display: block; }
+.lb-stage .miss{
+  width: 100%; min-height: 360px;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    repeating-linear-gradient(135deg,
+      var(--paper-3) 0 18px, var(--paper-2) 18px 19px);
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.lb-cap{
+  padding: 12px 18px;
+  border-top: 1.5px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  font-size: 11.5px;
+}
+.lb-cap .id{ font-weight: 700; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; color: var(--signal); }
+.lb-cap .desc{ color: var(--ink-soft); flex: 1; }
+.lb-cap .nav{ display: flex; gap: 6px; }
+.lb-cap .nav button{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 10px; border: 1px solid var(--line);
+  font-weight: 600;
+  transition: background 100ms, color 100ms;
+}
+.lb-cap .nav button:hover{ background: var(--ink); color: var(--paper-3); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1080px){
+  .chap-head{ grid-template-columns: 140px 1fr; }
+  .chap-head .specs{ grid-column: 1 / -1; border-top: 1px solid var(--line-soft); border-right: 0; padding: 18px 22px; }
+  .hero-frame{ grid-template-columns: 1fr; }
+  .hero-main{ border-right: 0; border-bottom: 1.5px solid var(--line); }
+}
+@media (max-width: 900px){
+  .titleblock-inner{ grid-template-columns: 1fr auto; }
+  .titleblock-inner > *:not(.tb-mark):not(.tb-spacer){ display: none; }
+  .sae-doc-head{ grid-template-columns: 1fr; }
+  .sae-doc-head .ttl{ border-right: 0; border-bottom: 1.5px solid var(--line); }
+  .sae-doc-body{ grid-template-columns: 1fr; gap: 24px; }
+  .sae-reflect{ grid-template-columns: 1fr; gap: 16px; }
+  .contact{ grid-template-columns: 1fr; }
+  .contact .left{ border-right: 0; border-bottom: 1.5px solid var(--line); }
+  .path-row{ grid-template-columns: 1fr; gap: 10px; }
+  .path-row .status{ justify-content: flex-start; }
+  .intro{ grid-template-columns: 1fr; gap: 32px; }
+  .skill{ grid-template-columns: 72px 1fr; }
+  .skill .ref{ grid-column: 2; border-right: 0; padding: 0; }
+  .skill .body{ grid-column: 2; padding-bottom: 18px; }
+  .skill .level{ grid-column: 2; align-items: flex-start; text-align: left; padding: 0 0 18px; }
+  footer.foot .row{ grid-template-columns: 1fr 1fr; gap: 12px; }
+  footer.foot .row > *{ border-left: 0; padding-left: 0; }
+}
+@media (max-width: 600px){
+  :root{ --gutter: 18px; }
+  .ac-card{ grid-template-columns: 1fr; }
+  .ac-card .meta-side{ border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .ac-card .thumb{ max-width: 240px; }
+  nav.chapters a{ margin-right: 14px; padding-right: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TITLE BLOCK
+     ============================================================ -->
+<header class="titleblock">
+  <div class="titleblock-inner">
+    <div class="tb-mark">
+      <span class="logomark"></span>
+      <span class="id">L. BURCET · GIM</span>
+    </div>
+    <div class="tb-spacer"></div>
+    <div>
+      <span class="tb-label">DOC</span>
+      <span class="tb-value">PRT-LBC-2025-001</span>
+    </div>
+    <div>
+      <span class="tb-label">RÉV</span>
+      <span class="tb-value">03</span>
+    </div>
+    <div>
+      <span class="tb-label">FEUILLE</span>
+      <span class="tb-value">01 / 01</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     CHAPTER NAV
+     ============================================================ -->
+<nav class="chapters">
+  <div class="row">
+    <a href="#s01" data-target="s01"><span class="n">§01</span><span class="t">Accueil</span></a>
+    <a href="#s02" data-target="s02"><span class="n">§02</span><span class="t">Compétences</span></a>
+    <a href="#s03" data-target="s03"><span class="n">§03</span><span class="t">Traces réflexives</span></a>
+    <a href="#s04" data-target="s04"><span class="n">§04</span><span class="t">Parcours</span></a>
+    <a href="#s05" data-target="s05"><span class="n">§05</span><span class="t">Contact</span></a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="top-row">
+      <div class="eyebrow"><span class="tag">PRT-LBC</span> Portfolio · BUT GIM · IUT Blagnac · 2025—2028</div>
+      <div class="pills">
+        <span class="pill ok"><span class="dot"></span>Document validé</span>
+        <span class="pill run"><span class="dot"></span>Année 1 · en cours</span>
+      </div>
+    </div>
+
+    <div class="hero-frame">
+      <div class="hero-main">
+        <span class="crosshair tl"></span><span class="crosshair tr"></span>
+        <span class="crosshair bl"></span><span class="crosshair br"></span>
+
+        <h1>
+          Loan
+          <span class="second">Burcet.</span>
+        </h1>
+        <p class="lede">
+          Étudiant en première année. Cap fixé sur le métier de
+          <strong>technicien de maintenance industrielle</strong>.
+        </p>
+      </div>
+
+      <div class="hero-side">
+        <div class="label"><span>Identification</span><b>PRT-LBC/00</b></div>
+        <table class="kv">
+          <tr><td>Formation</td><td>BUT GIM · A1</td></tr>
+          <tr><td>Année</td><td>2025—2026 · S2</td></tr>
+          <tr><td>SAÉ traitées</td><td>1.1 — 1.5</td></tr>
+          <tr><td>Soutenance</td><td>19/05/2026 · 08h30</td></tr>
+          <tr><td>Salle</td><td>B201 — IUT Blagnac</td></tr>
+        </table>
+        <div class="stamp">Bon pour soutenance · Rév. 03</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       §01 ACCUEIL
+       ============================================================ -->
+  <section id="s01" class="chapter">
+    <div class="chap-head">
+      <div class="ref">
+        <div>
+          <div class="num">01<em>.</em></div>
+          <div class="lbl">Chapitre · Accueil</div>
+        </div>
+        <div class="lbl" style="opacity:0.7;">PRT-LBC/01</div>
+      </div>
+      <div class="ttl">
+        <h2>Point <em>d'entrée.</em></h2>
+        <div class="sub">Présentation du document, du candidat et du cadre pédagogique. Ce portfolio sert de support à la soutenance de fin de S2.</div>
+      </div>
+      <div class="specs">
+        <div class="row"><span class="k">Statut</span><span class="v signal">Validé</span></div>
+        <div class="row"><span class="k">Blocs</span><span class="v">02</span></div>
+        <div class="row"><span class="k">Échelle</span><span class="v">1 : 1</span></div>
+        <div class="row"><span class="k">Format</span><span class="v">A4 · Portrait</span></div>
+      </div>
+    </div>
+
+    <div class="intro">
+      <div class="lead">
+        <p>Je m'appelle Loan Burcet. Je suis en première année de BUT Génie Industriel et Maintenance à l'IUT de Blagnac.</p>
+        <p>Ce portfolio rassemble cinq situations d'apprentissage et d'évaluation traitées sur l'année — chacune illustre une des cinq compétences du référentiel. L'objectif à trois ans : être prêt à intervenir <em>sur le terrain</em> comme technicien de maintenance industrielle.</p>
+        <p>Le monde industriel, les ateliers de production et les lignes d'assemblage sont mon environnement cible.</p>
+      </div>
+
+      <div class="fiche">
+        <div class="fiche-head"><span>Fiche d'identité</span><span class="ref-code">PRT-LBC/01.A</span></div>
+        <div class="fiche-body">
+          <table class="kv">
+            <tr><td>Nom · Prénom</td><td>Burcet, Loan</td></tr>
+            <tr><td>Établissement</td><td>IUT de Blagnac</td></tr>
+            <tr><td>Cursus</td><td>BUT GIM</td></tr>
+            <tr><td>Promotion</td><td>2025 — 2028</td></tr>
+            <tr><td>Année en cours</td><td>S2 / Année 1</td></tr>
+            <tr><td>Bac</td><td>Général — 2025</td></tr>
+            <tr><td>Langues</td><td>FR (natif) · EN technique</td></tr>
+            <tr><td>Email</td><td>loan.burcet@gmail.com</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       §02 COMPÉTENCES
+       ============================================================ -->
+  <section id="s02" class="chapter">
+    <div class="chap-head">
+      <div class="ref">
+        <div>
+          <div class="num">02<em>.</em></div>
+          <div class="lbl">Chapitre · Compétences</div>
+        </div>
+        <div class="lbl" style="opacity:0.7;">PRT-LBC/02</div>
+      </div>
+      <div class="ttl">
+        <h2>Cinq <em>verbes.</em></h2>
+        <div class="sub">Le référentiel BUT GIM s'organise en cinq compétences. Chacune est ouverte au niveau 1 cette année.</div>
+      </div>
+      <div class="specs">
+        <div class="row"><span class="k">Compétences</span><span class="v">05</span></div>
+        <div class="row"><span class="k">Niveau actuel</span><span class="v signal">1 / 3</span></div>
+        <div class="row"><span class="k">Référentiel</span><span class="v">BUT GIM 2022</span></div>
+      </div>
+    </div>
+
+    <div class="skills">
+
+      <div class="skill">
+        <div class="idx">01<span class="small">C1</span></div>
+        <div class="ref">
+          <span class="code">C1</span>
+          <b>Maintenir</b>
+          <span>GIM · niveau 1</span>
+        </div>
+        <div class="body">
+          <h3><span class="verb">Maintenir.</span> Garder l'équipement en état de fonctionnement.</h3>
+          <p>Diagnostiquer une panne, intervenir, remettre en service. Lire la documentation, suivre la gamme, vérifier que la pièce remontée fait exactement ce qu'elle doit faire.</p>
+        </div>
+        <div class="level">
+          <div class="gauge"><span class="on"></span><span></span><span></span></div>
+          <span>Niveau · 1 / 3</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="idx">02<span class="small">C2</span></div>
+        <div class="ref">
+          <span class="code">C2</span>
+          <b>Améliorer</b>
+          <span>GIM · niveau 1</span>
+        </div>
+        <div class="body">
+          <h3><span class="verb">Améliorer.</span> Pousser la performance des systèmes.</h3>
+          <p>Identifier ce qui freine, proposer une modification, mesurer l'écart avant / après. Une amélioration se prépare — elle s'élingue et se consigne avant de s'effectuer.</p>
+        </div>
+        <div class="level">
+          <div class="gauge"><span class="on"></span><span></span><span></span></div>
+          <span>Niveau · 1 / 3</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="idx">03<span class="small">C3</span></div>
+        <div class="ref">
+          <span class="code">C3</span>
+          <b>Installer</b>
+          <span>GIM · niveau 1</span>
+        </div>
+        <div class="body">
+          <h3><span class="verb">Installer.</span> Mettre en service le matériel et le logiciel.</h3>
+          <p>Préparer, configurer, connecter. La frontière mécanique / numérique disparaît : un même cycle de mise en service couvre les deux.</p>
+        </div>
+        <div class="level">
+          <div class="gauge"><span class="on"></span><span></span><span></span></div>
+          <span>Niveau · 1 / 3</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="idx">04<span class="small">C4</span></div>
+        <div class="ref">
+          <span class="code">C4</span>
+          <b>Manager</b>
+          <span>GIM · niveau 1</span>
+        </div>
+        <div class="body">
+          <h3><span class="verb">Manager.</span> Faire fonctionner une équipe maintenance.</h3>
+          <p>Observer les rituels d'équipe, comprendre le périmètre de chaque service, situer la maintenance dans la chaîne de valeur.</p>
+        </div>
+        <div class="level">
+          <div class="gauge"><span class="on"></span><span></span><span></span></div>
+          <span>Niveau · 1 / 3</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="idx">05<span class="small">C5</span></div>
+        <div class="ref">
+          <span class="code">C5</span>
+          <b>Sécuriser</b>
+          <span>GIM · niveau 1</span>
+        </div>
+        <div class="body">
+          <h3><span class="verb">Sécuriser.</span> Avant tout — au-dessus de tout.</h3>
+          <p>Identifier les familles de risques, hiérarchiser les protections, intervenir sans s'exposer ni exposer les autres. Mesures collectives avant mesures individuelles.</p>
+        </div>
+        <div class="level">
+          <div class="gauge"><span class="on"></span><span></span><span></span></div>
+          <span>Niveau · 1 / 3</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       §03 TRACES RÉFLEXIVES
+       ============================================================ -->
+  <section id="s03" class="chapter">
+    <div class="chap-head">
+      <div class="ref">
+        <div>
+          <div class="num">03<em>.</em></div>
+          <div class="lbl">Chapitre · Traces</div>
+        </div>
+        <div class="lbl" style="opacity:0.7;">PRT-LBC/03</div>
+      </div>
+      <div class="ttl">
+        <h2>Cinq <em>dossiers.</em></h2>
+        <div class="sub">Chaque SAÉ est présentée comme une fiche d'intervention : contexte, action, apprentissages critiques, traces, retour réflexif. Navigation par onglets — ou flèches du clavier.</div>
+      </div>
+      <div class="specs">
+        <div class="row"><span class="k">SAÉ</span><span class="v">05</span></div>
+        <div class="row"><span class="k">Traces</span><span class="v">12</span></div>
+        <div class="row"><span class="k">Format</span><span class="v">Datasheet</span></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="sae-tabs" id="sae-tabs">
+      <button class="sae-tab active" data-sae="sae11">
+        <span class="ref">SAÉ 1.1 · C1</span>
+        <span class="verb">Maintenir</span>
+      </button>
+      <button class="sae-tab" data-sae="sae12">
+        <span class="ref">SAÉ 1.2 · C2</span>
+        <span class="verb">Améliorer</span>
+      </button>
+      <button class="sae-tab" data-sae="sae13">
+        <span class="ref">SAÉ 1.3 · C3</span>
+        <span class="verb">Installer</span>
+      </button>
+      <button class="sae-tab" data-sae="sae14">
+        <span class="ref">SAÉ 1.4 · C4</span>
+        <span class="verb">Manager</span>
+      </button>
+      <button class="sae-tab" data-sae="sae15">
+        <span class="ref">SAÉ 1.5 · C5</span>
+        <span class="verb">Sécuriser</span>
+      </button>
+    </div>
+
+    <div class="sae-stage" id="sae-stage"><!-- généré par JS --></div>
+
+  </section>
+
+  <!-- ============================================================
+       §04 PARCOURS
+       ============================================================ -->
+  <section id="s04" class="chapter">
+    <div class="chap-head">
+      <div class="ref">
+        <div>
+          <div class="num">04<em>.</em></div>
+          <div class="lbl">Chapitre · Parcours</div>
+        </div>
+        <div class="lbl" style="opacity:0.7;">PRT-LBC/04</div>
+      </div>
+      <div class="ttl">
+        <h2>Suite <em>d'étapes.</em></h2>
+        <div class="sub">Trajectoire, étape par étape — du baccalauréat à l'horizon professionnel.</div>
+      </div>
+      <div class="specs">
+        <div class="row"><span class="k">Entrées</span><span class="v">06</span></div>
+        <div class="row"><span class="k">Horizon</span><span class="v">2025—2028</span></div>
+        <div class="row"><span class="k">Cible</span><span class="v signal">BUT GIM · Bac+3</span></div>
+      </div>
+    </div>
+
+    <div class="path">
+
+      <div class="path-row">
+        <div class="date">2025<small>Juin</small></div>
+        <div class="body">
+          <h4>Baccalauréat général — obtenu.</h4>
+          <p>Validation du socle pré-supérieur, mention et orientation BUT GIM confirmée.</p>
+        </div>
+        <div class="status"><span class="pill ok"><span class="dot"></span>Validé</span></div>
+      </div>
+
+      <div class="path-row">
+        <div class="date">2025<small>Septembre</small></div>
+        <div class="body">
+          <h4>Entrée en BUT GIM — IUT de Blagnac.</h4>
+          <p>Parcours technicien de maintenance industrielle. Premier semestre de cycle.</p>
+        </div>
+        <div class="status"><span class="pill ok"><span class="dot"></span>Validé</span></div>
+      </div>
+
+      <div class="path-row">
+        <div class="date">2025<small>—2026 · S1 + S2</small></div>
+        <div class="body">
+          <h4>Année 1 — cinq SAÉ traitées.</h4>
+          <p>Maintenir, Améliorer, Installer, Manager, Sécuriser. Acquisitions techniques : mécanique, électrique, numérique (Linux, SSH, Raspberry Pi), sécurité.</p>
+        </div>
+        <div class="status"><span class="pill run"><span class="dot"></span>En cours</span></div>
+      </div>
+
+      <div class="path-row">
+        <div class="date">2026<small>19 mai</small></div>
+        <div class="body">
+          <h4>Soutenance de fin de S2.</h4>
+          <p>Présentation orale devant jury. Salle B201, mardi 19 mai 2026, 08h30.</p>
+        </div>
+        <div class="status"><span class="pill run"><span class="dot"></span>À venir</span></div>
+      </div>
+
+      <div class="path-row">
+        <div class="date">2026<small>—2028 · A2 + A3</small></div>
+        <div class="body">
+          <h4>Années 2 &amp; 3 — spécialisation.</h4>
+          <p>Approfondissement des compétences (niveaux 2 puis 3), stage et / ou alternance en milieu industriel.</p>
+        </div>
+        <div class="status"><span class="pill next"><span class="dot"></span>Planifié</span></div>
+      </div>
+
+      <div class="path-row">
+        <div class="date">2028<small>Juin</small></div>
+        <div class="body">
+          <h4>Diplôme BUT GIM — cible.</h4>
+          <p>Sortie du cursus, niveau Bac+3, insertion professionnelle visée en maintenance industrielle.</p>
+        </div>
+        <div class="status"><span class="pill next"><span class="dot"></span>Cible</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       §05 CONTACT
+       ============================================================ -->
+  <section id="s05" class="chapter">
+    <div class="chap-head">
+      <div class="ref">
+        <div>
+          <div class="num">05<em>.</em></div>
+          <div class="lbl">Chapitre · Contact</div>
+        </div>
+        <div class="lbl" style="opacity:0.7;">PRT-LBC/05</div>
+      </div>
+      <div class="ttl">
+        <h2>Une <em>adresse.</em></h2>
+        <div class="sub">Une seule voie de contact, lisible. Pour le reste : le terrain.</div>
+      </div>
+      <div class="specs">
+        <div class="row"><span class="k">Canaux</span><span class="v">01</span></div>
+        <div class="row"><span class="k">Statut</span><span class="v signal">Ouvert</span></div>
+        <div class="row"><span class="k">Disponibilité</span><span class="v">Sur site</span></div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="left">
+        <a class="mail" href="mailto:loan.burcet@gmail.com">loan.burcet<wbr />@gmail.com</a>
+        <div class="obj">Objectif&nbsp;: <span>technicien de maintenance industrielle.</span> Ateliers, supervision, équipes terrain.</div>
+      </div>
+      <div class="right">
+        <div class="label">Coordonnées · PRT-LBC/05.A</div>
+        <table class="kv">
+          <tr><td>Établissement</td><td>IUT de Blagnac</td></tr>
+          <tr><td>Promotion</td><td>2025 — 2028</td></tr>
+          <tr><td>Soutenance</td><td>19/05/2026 — 08h30 — B201</td></tr>
+          <tr><td>Langues</td><td>FR · EN technique</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /.page -->
+
+<!-- ============================================================
+     FOOTER — title block style
+     ============================================================ -->
+<footer class="foot">
+  <div class="row">
+    <div>
+      <span class="tb-label">Document</span>
+      <span class="tb-value">Loan Burcet · Portfolio · BUT GIM · IUT Blagnac</span>
+    </div>
+    <div>
+      <span class="tb-label">Réf.</span>
+      <span class="tb-value">PRT-LBC-2025-001</span>
+    </div>
+    <div>
+      <span class="tb-label">Rév.</span>
+      <span class="tb-value">03</span>
+    </div>
+    <div>
+      <span class="tb-label">Format</span>
+      <span class="tb-value">A4 · 1:1</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     LIGHTBOX
+     ============================================================ -->
+<div class="lb" id="lightbox" aria-hidden="true">
+  <div class="lb-frame" role="dialog" aria-modal="true">
+    <div class="lb-head">
+      <span><b id="lb-id">—</b> <span id="lb-counter" style="margin-left:18px;">—</span></span>
+      <button class="lb-close" aria-label="Fermer">Fermer · esc</button>
+    </div>
+    <div class="lb-stage" id="lb-stage"></div>
+    <div class="lb-cap">
+      <span class="id" id="lb-ref">—</span>
+      <span class="desc" id="lb-title">—</span>
+      <span class="nav">
+        <button id="lb-prev">◂ Préc.</button>
+        <button id="lb-next">Suiv. ▸</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   DATA — 5 SAÉ
+   ========================================================= */
+const SAE = [
+  {
+    id: "sae11",
+    code: "SAÉ 1.1",
+    verb: "Maintenir",
+    title: "Tracker solaire",
+    partner: "Crea Technologie",
+    contexte:    "Tracker solaire — système d'orientation automatique de panneaux. Projet réalisé en partenariat avec Crea Technologie.",
+    intervention:"Remplacement de la carte de commande électrique.",
+    travail:     "Lecture des documents techniques, analyse du schéma de câblage, assemblage mécanique, recâblage de l'alimentation, test de continuité au multimètre, rédaction d'une gamme de maintenance.",
+    reflect:     "Lors des tests de continuité, une erreur de câblage sur l'alimentation a été identifiée — avant mise sous tension. La vérification systématique en amont est ce qui transforme une erreur en simple contrôle. Conclusion opérationnelle : pas de mise sous tension sans contrôle de continuité, même quand on est sûr.",
+    quote:       "Une erreur identifiée à temps n'est plus une erreur — c'est un contrôle qui a marché.",
+    matieres:    "Anglais · Mécanique · Génie électrique",
+    acs: [
+      { code: "AC1", text: "Comprendre le fonctionnement des constituants élémentaires d'un système simple.", photo: "photos/SAE1.1/AC1/SAE1.1_AC1.jpg" },
+      { code: "AC2", text: "Utiliser les outils adaptés à une intervention simple.",                          photo: "photos/SAE1.1/AC2/SAE1.1_AC2.jpg" }
+    ]
+  },
+  {
+    id: "sae12",
+    code: "SAÉ 1.2",
+    verb: "Améliorer",
+    title: "Extrudeur Extrudic",
+    partner: "Travaux pratiques GIM",
+    contexte:    "Extrudeur industriel destiné à la fabrication de savon. Étude d'une opération d'amélioration impliquant un démontage lourd.",
+    intervention:"Dépose et découplage du motoréducteur.",
+    travail:     "Rédaction d'une gamme de maintenance, préparation des EPI et de l'outillage, consignation de la machine, élingage 1 T, dépose du motoréducteur, remontage avec contrôle.",
+    reflect:     "La grue mise à disposition avait des pieds trop étroits pour le besoin réel. Le levage a dû être adapté en cours d'intervention — perte de temps évitable. L'enseignement est clair : les moyens de levage se dimensionnent en préparation, pas à pied d'œuvre. Anticiper les contraintes matérielles fait partie de la gamme.",
+    quote:       "Le levage commence avant le levage — sur la fiche de préparation.",
+    matieres:    "Mécanique · Anglais",
+    acs: [
+      { code: "AC1", text: "Identifier les différents éléments du système et leur fonction.",     photo: "photos/SAE1.2/AC1/SAE1.2_AC1.jpg" },
+      { code: "AC2", text: "Exécuter une gamme de démontage / montage d'un nouveau composant.",   photo: "photos/SAE1.2/AC2/SAE1.2_AC2.jpg" }
+    ]
+  },
+  {
+    id: "sae13",
+    code: "SAÉ 1.3",
+    verb: "Installer",
+    title: "Raspberry Pi 3",
+    partner: "Atelier numérique GIM",
+    contexte:    "Installation et mise en service d'un Raspberry Pi 3. Première approche du volet numérique de la maintenance moderne.",
+    intervention:"Installation d'un Linux Desktop et mise en place d'une connexion SSH distante.",
+    travail:     "Préparation d'une carte micro-SD avec Raspberry Pi Imager, configuration initiale du système Linux, ouverture d'une session SSH en ligne de commande, puis via PuTTY depuis un poste Windows.",
+    reflect:     "Première confrontation à Linux et aux protocoles réseau. Un même objectif technique — accéder à la machine à distance — peut être atteint par plusieurs chemins. La documentation, lue en français comme en anglais, est ce qui permet de comparer et de choisir.",
+    quote:       "Plusieurs méthodes pour un même objectif — c'est la documentation qui tranche.",
+    matieres:    "Informatique",
+    acs: [
+      { code: "AC1", text: "Préparer l'installation.",                                              photo: "photos/SAE1.3/AC1/SAE1.3_AC1.jpg" },
+      { code: "AC2", text: "Exécuter une opération technique.",                                      photo: "photos/SAE1.3/AC2/SAE1.3_AC2.jpg" },
+      { code: "AC3", text: "Utiliser une documentation technique en français et en anglais.",        photo: "photos/SAE1.3/AC3/SAE1.3_AC3.jpg" }
+    ]
+  },
+  {
+    id: "sae14",
+    code: "SAÉ 1.4",
+    verb: "Manager",
+    title: "Visite Airbus — site Clément Ader",
+    partner: "Airbus / Toulouse",
+    contexte:    "Visite du site Airbus Clément Ader. La préparation est passée par une phase de recherche d'entreprise puis par l'organisation concrète de la visite. Observation, sur place, de l'organisation industrielle du site.",
+    intervention:"Étude de l'organisation inter-équipes et du rôle de la maintenance dans l'écosystème industriel.",
+    travail:     "Observation des rituels de management : réunions ROP, TRAP, SQCDP. Analyse du périmètre de la maintenance sous-traitée. Lecture de la politique sécurité du site.",
+    reflect:     "Monter une visite de ce type ne s'improvise pas : il faut une vraie organisation en amont — cibler l'entreprise, formaliser la demande, relancer, caler la logistique. La méthode donne le cadre ; la détermination, elle, fait franchir les étapes où l'on n'a pas de réponse immédiate. Sans ces deux ingrédients, le projet s'arrête à la première difficulté.",
+    quote:       "Une visite de ce type ne se demande pas — elle s'organise.",
+    matieres:    "TEC (Techniques d'expression et de communication)",
+    acs: [
+      { code: "AC1", text: "Utiliser un vocabulaire adapté.",                                                 photo: "photos/SAE1.4/AC1/SAE1.4_AC1.jpg" },
+      { code: "AC2", text: "Identifier le rôle des services d'une entreprise et leurs interactions.",         photo: "photos/SAE1.4/AC2/SAE1.4_AC2.jpg" }
+    ]
+  },
+  {
+    id: "sae15",
+    code: "SAÉ 1.5",
+    verb: "Sécuriser",
+    title: "Analyse de risques — FAL A330/350",
+    partner: "Airbus / FAL A330/350",
+    contexte:    "Analyse de risques portant sur un poste de travail de la FAL — Final Assembly Line — A330/350.",
+    intervention:"Identification, classement et traitement des risques d'un poste.",
+    travail:     "Recensement de six familles de risques, focus sur les troubles musculo-squelettiques (TMS), étude des mesures de prévention — collectives puis individuelles.",
+    reflect:     "La hiérarchie des mesures n'est pas négociable : on traite d'abord ce qui protège tout le monde, puis ce qui protège l'individu. Ce regard prévention est directement transposable à la maintenance — la sécurité ne se rajoute pas en fin d'intervention, elle se conçoit dès la gamme.",
+    quote:       "Mesures collectives avant individuelles — la hiérarchie ne se discute pas.",
+    matieres:    "Sécurité",
+    acs: [
+      { code: "AC1", text: "Identifier les règles et normes correspondantes au système.", photo: "photos/SAE1.5/AC1/SAE1.5_AC1.jpg" },
+      { code: "AC2", text: "Intervenir en sécurité dans les opérations de maintenance.",  photo: "photos/SAE1.5/AC2/SAE1.5_AC2.jpg" },
+      { code: "AC3", text: "Utiliser les outils adaptés aux mesures et contrôles.",        photo: "photos/SAE1.5/AC3/SAE1.5_AC3.jpg" }
+    ]
+  }
+];
+
+/* =========================================================
+   RENDER SAÉ
+   ========================================================= */
+const stage = document.getElementById('sae-stage');
+
+function renderSAE(){
+  const html = SAE.map((s, idx) => {
+    const acs = s.acs.map(ac => `
+      <div class="ac-card">
+        <div class="meta-side">
+          <div class="code">${ac.code}</div>
+          <div class="text">${ac.text}</div>
+        </div>
+        <div class="thumb" data-photo="${ac.photo}" data-id="${s.code} · ${ac.code}" data-caption="${ac.text.replace(/"/g,'&quot;')}">
+          <img alt="${ac.text}" src="${ac.photo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="miss" style="display:none;">À documenter</div>
+        </div>
+      </div>
+    `).join('');
+
+    return `
+      <article class="sae-doc ${idx === 0 ? 'active' : ''}" id="doc-${s.id}" data-sae="${s.id}">
+        <div class="sae-doc-head">
+          <div class="ttl">
+            <span class="verb">C${idx+1} · ${s.verb}</span>
+            <div class="name">${s.title}</div>
+          </div>
+          <div class="meta">
+            <div class="row"><span class="k">Réf.</span><span class="v signal">${s.code}</span></div>
+            <div class="row"><span class="k">Niveau</span><span class="v">1 / 3</span></div>
+            <div class="row"><span class="k">Statut</span><span class="v">Traité</span></div>
+            <div class="row"><span class="k">Feuille</span><span class="v">${idx+1} / ${SAE.length}</span></div>
+          </div>
+        </div>
+
+        <div class="sae-doc-body">
+          <div class="left">
+            <div class="sae-block large signal">
+              <div class="label"><span class="num">01</span><span class="tag">Contexte</span></div>
+              <p>${s.contexte}</p>
+            </div>
+            <div class="sae-block">
+              <div class="label"><span class="num">02</span><span class="tag">Intervention</span></div>
+              <p>${s.intervention}</p>
+            </div>
+            <div class="sae-block">
+              <div class="label"><span class="num">03</span><span class="tag">Travail réalisé</span></div>
+              <p>${s.travail}</p>
+            </div>
+            <div class="sae-block">
+              <div class="label"><span class="num">03b</span><span class="tag">Matières utiles</span></div>
+              <p>${s.matieres}</p>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="sae-block" style="margin-bottom:14px;">
+              <div class="label"><span class="num">04</span><span class="tag">Apprentissages critiques · Niveau 1</span></div>
+            </div>
+            <div class="ac-list">${acs}</div>
+          </div>
+        </div>
+
+        <div class="sae-reflect">
+          <div class="label">
+            <span class="num">05</span>
+            Retour
+            <em>réflexif.</em>
+          </div>
+          <div class="body">
+            <div class="quote">${s.quote}</div>
+            <p>${s.reflect}</p>
+          </div>
+        </div>
+
+        <div class="sae-nav-foot">
+          <button data-go="prev" ${idx === 0 ? 'disabled' : ''}>◂ ${idx === 0 ? '—' : SAE[idx-1].code + ' · ' + SAE[idx-1].verb}</button>
+          <span class="counter">${idx + 1} / ${SAE.length}</span>
+          <button data-go="next" ${idx === SAE.length-1 ? 'disabled' : ''}>${idx === SAE.length-1 ? '—' : SAE[idx+1].code + ' · ' + SAE[idx+1].verb} ▸</button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  stage.innerHTML = html;
+}
+renderSAE();
+
+/* photos courantes pour la lightbox */
+let currentPhotos = [];
+function setCurrentPhotos(saeId){
+  const s = SAE.find(x => x.id === saeId);
+  if(!s) return;
+  currentPhotos = s.acs.map(ac => ({
+    id:  `${s.code} · ${ac.code}`,
+    src: ac.photo,
+    caption: ac.text
+  }));
+}
+setCurrentPhotos(SAE[0].id);
+
+/* tabs + navigation */
+const tabs = document.querySelectorAll('.sae-tab');
+function activateSAE(saeId){
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.sae === saeId));
+  document.querySelectorAll('.sae-doc').forEach(d => d.classList.toggle('active', d.dataset.sae === saeId));
+  setCurrentPhotos(saeId);
+  history.replaceState(null, '', `#s03/${saeId}`);
+}
+tabs.forEach(t => t.addEventListener('click', () => activateSAE(t.dataset.sae)));
+
+/* prev/next foot buttons */
+stage.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-go]');
+  if(!btn) return;
+  const activeIdx = SAE.findIndex(s => document.getElementById('doc-'+s.id).classList.contains('active'));
+  let next = activeIdx + (btn.dataset.go === 'next' ? 1 : -1);
+  next = Math.max(0, Math.min(SAE.length - 1, next));
+  activateSAE(SAE[next].id);
+  document.getElementById('s03').scrollIntoView({behavior: 'smooth', block: 'start'});
+});
+
+/* keyboard arrow nav when over §03 */
+document.addEventListener('keydown', (e) => {
+  if(document.getElementById('lightbox').classList.contains('open')) return;
+  const sec = document.getElementById('s03');
+  const rect = sec.getBoundingClientRect();
+  const inView = rect.top < window.innerHeight * 0.7 && rect.bottom > 0;
+  if(!inView) return;
+  if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const activeIdx = SAE.findIndex(s => document.getElementById('doc-'+s.id).classList.contains('active'));
+  let next = activeIdx + (e.key === 'ArrowRight' ? 1 : -1);
+  next = Math.max(0, Math.min(SAE.length - 1, next));
+  if(next !== activeIdx) activateSAE(SAE[next].id);
+});
+
+/* deep link via hash */
+function applyHash(){
+  const m = location.hash.match(/#s03\/(sae\d+)/);
+  if(m && SAE.find(s => s.id === m[1])) activateSAE(m[1]);
+}
+applyHash();
+
+/* =========================================================
+   LIGHTBOX
+   ========================================================= */
+const lb       = document.getElementById('lightbox');
+const lbStage  = document.getElementById('lb-stage');
+const lbId     = document.getElementById('lb-id');
+const lbRef    = document.getElementById('lb-ref');
+const lbTitle  = document.getElementById('lb-title');
+const lbCount  = document.getElementById('lb-counter');
+const lbPrev   = document.getElementById('lb-prev');
+const lbNext   = document.getElementById('lb-next');
+const lbClose  = document.querySelector('.lb-close');
+
+let lbIndex = 0;
+function openLightbox(idx){
+  if(!currentPhotos.length) return;
+  lbIndex = (idx + currentPhotos.length) % currentPhotos.length;
+  const p = currentPhotos[lbIndex];
+  lbStage.innerHTML = '';
+  const img = new Image();
+  img.onerror = () => {
+    img.remove();
+    const m = document.createElement('div');
+    m.className = 'miss';
+    m.textContent = 'À documenter — ' + p.src.split('/').pop();
+    lbStage.appendChild(m);
+  };
+  img.src = p.src;
+  lbStage.appendChild(img);
+  lbId.textContent    = p.id;
+  lbRef.textContent   = p.src.split('/').pop();
+  lbTitle.textContent = p.caption;
+  lbCount.textContent = `${lbIndex+1} / ${currentPhotos.length}`;
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('.thumb');
+  if(t){
+    const idx = currentPhotos.findIndex(p => p.src === t.dataset.photo);
+    openLightbox(idx >= 0 ? idx : 0);
+  }
+});
+lbClose.addEventListener('click', closeLightbox);
+lb.addEventListener('click', (e) => { if(e.target === lb) closeLightbox(); });
+lbPrev.addEventListener('click', () => openLightbox(lbIndex - 1));
+lbNext.addEventListener('click', () => openLightbox(lbIndex + 1));
+document.addEventListener('keydown', (e) => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape')     closeLightbox();
+  if(e.key === 'ArrowLeft')  openLightbox(lbIndex - 1);
+  if(e.key === 'ArrowRight') openLightbox(lbIndex + 1);
+});
+
+/* =========================================================
+   NAV — active state + scroll
+   ========================================================= */
+const navLinks = document.querySelectorAll('nav.chapters a');
+const sections = ['s01','s02','s03','s04','s05'].map(id => document.getElementById(id));
+function setActiveNav(){
+  const y = window.scrollY + 160;
+  let active = sections[0];
+  for(const s of sections){ if(s.offsetTop <= y) active = s; }
+  navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === active.id));
+}
+setActiveNav();
+window.addEventListener('scroll', setActiveNav, { passive: true });
+navLinks.forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.getElementById(a.dataset.target);
+    if(target) window.scrollTo({ top: target.offsetTop - 84, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
