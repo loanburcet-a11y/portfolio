@@ -757,8 +757,9 @@ section.chapter{
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .ac-card .thumb .miss{
+  display: none;
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+  align-items: center; justify-content: center;
   background:
     repeating-linear-gradient(135deg,
       var(--paper-3) 0 8px, var(--paper-2) 8px 9px);
@@ -776,6 +777,23 @@ section.chapter{
   color: var(--ink-soft);
   font-weight: 600;
 }
+.ac-card .thumb-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+  overflow: hidden;
+  align-self: stretch;
+  min-height: 100px;
+}
+.ac-card .thumb-grid .thumb{
+  aspect-ratio: unset;
+  height: 100%;
+  min-height: 48px;
+  border-radius: 0;
+}
+.ac-card .thumb-grid .thumb .miss::before{ font-size: 9px; }
 
 /* retour réflexif */
 .sae-reflect{
@@ -1354,8 +1372,8 @@ footer.foot b{ color: var(--ink); font-weight: 600; }
 
     <!-- Tabs -->
     <div class="sae-tabs" id="sae-tabs">
-      <button class="sae-tab active" data-sae="sae11">
-        <span class="ref">SAÉ 1.1 · C1</span>
+      <button class="sae-tab active" data-sae="restauration4l">
+        <span class="ref">Projet · C1</span>
         <span class="verb">Maintenir</span>
       </button>
       <button class="sae-tab" data-sae="sae12">
@@ -1555,20 +1573,20 @@ footer.foot b{ color: var(--ink); font-weight: 600; }
    ========================================================= */
 const SAE = [
   {
-    id: "sae11",
-    code: "SAÉ 1.1",
+    id: "restauration4l",
+    code: "Proj. 4L",
     verb: "Maintenir",
-    title: "Tracker solaire",
-    partner: "Crea Technologie",
-    contexte:    "Tracker solaire — système d'orientation automatique de panneaux. Projet réalisé en partenariat avec Crea Technologie.",
-    intervention:"Remplacement de la carte de commande électrique.",
-    travail:     "Lecture des documents techniques, analyse du schéma de câblage, assemblage mécanique, recâblage de l'alimentation, test de continuité au multimètre, rédaction d'une gamme de maintenance.",
-    reflect:     "Lors des tests de continuité, une erreur de câblage sur l'alimentation a été identifiée — avant mise sous tension. La vérification systématique en amont est ce qui transforme une erreur en simple contrôle. Conclusion opérationnelle : pas de mise sous tension sans contrôle de continuité, même quand on est sûr.",
-    quote:       "Une erreur identifiée à temps n'est plus une erreur — c'est un contrôle qui a marché.",
-    matieres:    "Anglais · Mécanique · Génie électrique",
+    title: "Restauration 4L",
+    partner: "4L Trophy",
+    contexte:    "Restauration complète d'une Renault 4L de 1983 pour le 4L Trophy.",
+    intervention:"Rénovation du train arrière.",
+    travail:     "Dépose du train arrière, peinture, réfection des systèmes de frein (mâchoires et cylindre), vérification et ajustage des roulements.",
+    reflect:     "Malgré la gamme de démontage, la dépose du train arrière n'a pas été facile car la voiture est ancienne. Un véhicule de 1983 impose ses propres règles : pièces grippées, rouille, côtes hors tolérances. La gamme donne le protocole — l'expérience de terrain, elle, s'acquiert à chaque boulon.",
+    quote:       "La gamme donne le chemin — la rouille, elle, improvise.",
+    matieres:    "TMF",
     acs: [
-      { code: "AC1", text: "Comprendre le fonctionnement des constituants élémentaires d'un système simple.", photo: "photos/SAE1.1/AC1/SAE1.1_AC1.jpg" },
-      { code: "AC2", text: "Utiliser les outils adaptés à une intervention simple.",                          photo: "photos/SAE1.1/AC2/SAE1.1_AC2.jpg" }
+      { code: "AC1", text: "Comprendre le fonctionnement des constituants élémentaires d'un système simple.", photos: ["photos/Restauration4L/AC1/4L_AC1_1.jpg","photos/Restauration4L/AC1/4L_AC1_2.jpg","photos/Restauration4L/AC1/4L_AC1_3.jpg","photos/Restauration4L/AC1/4L_AC1_4.jpg"] },
+      { code: "AC2", text: "Utiliser les outils adaptés à une intervention simple.", photo: "photos/SAE1.1/AC2/SAE1.1_AC2.png" }
     ]
   },
   {
@@ -1648,20 +1666,32 @@ const SAE = [
    ========================================================= */
 const stage = document.getElementById('sae-stage');
 
+function thumbHTML(src, id, caption){
+  const cap = caption.replace(/"/g,'&quot;');
+  return `<div class="thumb" data-photo="${src}" data-id="${id}" data-caption="${cap}"><img alt="${cap}" src="${src}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" /><div class="miss">À documenter</div></div>`;
+}
+
 function renderSAE(){
   const html = SAE.map((s, idx) => {
-    const acs = s.acs.map(ac => `
+    const acs = s.acs.map(ac => {
+      const photos = ac.photos ?? [ac.photo];
+      const multi = photos.length > 1;
+      const thumbs = photos.map((p, i) =>
+        thumbHTML(p, `${s.code} · ${ac.code}${multi ? ` · ${i+1}` : ''}`, ac.text)
+      );
+      const photoCol = multi
+        ? `<div class="thumb-grid">${thumbs.join('')}</div>`
+        : thumbs[0];
+      return `
       <div class="ac-card">
         <div class="meta-side">
           <div class="code">${ac.code}</div>
           <div class="text">${ac.text}</div>
         </div>
-        <div class="thumb" data-photo="${ac.photo}" data-id="${s.code} · ${ac.code}" data-caption="${ac.text.replace(/"/g,'&quot;')}">
-          <img alt="${ac.text}" src="${ac.photo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="miss" style="display:none;">À documenter</div>
-        </div>
+        ${photoCol}
       </div>
-    `).join('');
+      `;
+    }).join('');
 
     return `
       <article class="sae-doc ${idx === 0 ? 'active' : ''}" id="doc-${s.id}" data-sae="${s.id}">
@@ -1730,17 +1760,22 @@ function renderSAE(){
   stage.innerHTML = html;
 }
 renderSAE();
+const docs = document.querySelectorAll('.sae-doc');
 
 /* photos courantes pour la lightbox */
 let currentPhotos = [];
 function setCurrentPhotos(saeId){
   const s = SAE.find(x => x.id === saeId);
   if(!s) return;
-  currentPhotos = s.acs.map(ac => ({
-    id:  `${s.code} · ${ac.code}`,
-    src: ac.photo,
-    caption: ac.text
-  }));
+  currentPhotos = s.acs.flatMap(ac => {
+    const photos = ac.photos ?? [ac.photo];
+    const multi = photos.length > 1;
+    return photos.map((p, i) => ({
+      id: `${s.code} · ${ac.code}${multi ? ` · ${i+1}` : ''}`,
+      src: p,
+      caption: ac.text
+    }));
+  });
 }
 setCurrentPhotos(SAE[0].id);
 
@@ -1748,7 +1783,7 @@ setCurrentPhotos(SAE[0].id);
 const tabs = document.querySelectorAll('.sae-tab');
 function activateSAE(saeId){
   tabs.forEach(t => t.classList.toggle('active', t.dataset.sae === saeId));
-  document.querySelectorAll('.sae-doc').forEach(d => d.classList.toggle('active', d.dataset.sae === saeId));
+  docs.forEach(d => d.classList.toggle('active', d.dataset.sae === saeId));
   setCurrentPhotos(saeId);
   history.replaceState(null, '', `#s03/${saeId}`);
 }
@@ -1781,7 +1816,7 @@ document.addEventListener('keydown', (e) => {
 
 /* deep link via hash */
 function applyHash(){
-  const m = location.hash.match(/#s03\/(sae\d+)/);
+  const m = location.hash.match(/#s03\/([^/]+)/);
   if(m && SAE.find(s => s.id === m[1])) activateSAE(m[1]);
 }
 applyHash();
